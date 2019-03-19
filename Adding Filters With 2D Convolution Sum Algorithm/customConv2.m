@@ -13,11 +13,11 @@
 % h7 = [0.5 0.5; 0.5 0.5];
 
 function customConv2
-    filterSize = input('Enter filter size: ');
-    H = zeros(filterSize,filterSize);
+   
+    H = zeros(2, 2);
     
-    for x = 1 : filterSize
-        for y = 1 : filterSize
+    for x = 1 : 2
+        for y = 1 : 2
             value = input(['Enter [' num2str(x) ',' num2str(y) '] value: ']);
             H(x, y) = value;
         end
@@ -32,9 +32,9 @@ function customConv2
         figure(1);
         imshow(img);
         title('Original');
+        
         figure(2);
-        imgNew = conv2Filter(double(img),double(H));
-        imshow(uint8(imgNew));
+        imshow(uint8(conv2Filter(double(rgb2gray(img)),double(H))));
         title('With 2D Convoluiton Sum');
     
     elseif(choice == 2)
@@ -47,11 +47,13 @@ function customConv2
                 X(a, b) = value;
             end
         end
+        
         disp('Result: ');
         conv2Filter(X,H)
     end
     
     function Y = conv2Filter(X, H)
+        
         temp = H(1,2);
         H(1,2)= H(2,1);
         H(2,1) = temp;
