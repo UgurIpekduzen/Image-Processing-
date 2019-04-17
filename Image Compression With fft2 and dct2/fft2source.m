@@ -2,13 +2,11 @@ close all;
 clear all;
 clc;
 
-matrix = [2 4 ; 67 -19; 13 34 ; 89 -55; 10 0];
-% x = imread('ugur.jpg');
-% x = x(: , : , 1);
-% figure(1);
-% imshow(x);
-% x = double(x);
-x = matrix;
+x = imread('ugur.jpg');
+x = x(: , : , 1);
+figure(1);
+imshow(x);
+x = double(x);
 [M,N] = size(x);
 
 result = zeros(M,N);
@@ -25,13 +23,11 @@ for m = 0 : M - 1
         result(m + 1, n + 1) = sum; 
     end
 end
-result
-fft2(x)
-% figure(2);
-% result = abs(fftshift(result));
-% imshow(uint8(result));
-% 
-% figure(3);
-% F = abs(fftshift(fft2(x)));
-% imshow(uint8(F));
+compressedImg = zeros(100,100);
+compressedImg(1:50,1:50) = result(1:50,1:50);
+compressedImg = uint8(abs(ifft2(compressedImg)));
+figure(2);
+imshow(compressedImg);
+
+
 
